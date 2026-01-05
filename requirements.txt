@@ -1,0 +1,6 @@
+# RLM-C (Recursive Language Model on Claude) Dependencies
+# Core dependencies
+pydantic>=2.0
+typing-extensions>=4.0
+
+# No vector store dependencies - using ripgrep for text search
