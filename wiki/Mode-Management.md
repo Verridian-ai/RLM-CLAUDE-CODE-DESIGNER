@@ -20,6 +20,32 @@ result = orchestrator.review(code)
 
 **Purpose**: Enterprise workflow management with strict mode transitions.
 
+```mermaid
+stateDiagram-v2
+    %% Styling
+    classDef active fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1
+    classDef gate fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c
+    
+    [*] --> EXPLORE:::active
+    
+    EXPLORE --> PLAN:::active: User Approval
+    PLAN --> CODE:::active: Plan Approved
+    
+    CODE --> REVIEW:::gate: Implementation Complete
+    
+    state REVIEW {
+        [*] --> AutomatedTests
+        AutomatedTests --> CodeReviewAgent
+        CodeReviewAgent --> SecurityAudit
+        SecurityAudit --> [*]
+    }
+    
+    REVIEW --> CODE: Fail
+    REVIEW --> COMMIT:::active: Pass
+    
+    COMMIT --> [*]: Deploy
+```
+
 **Modes**:
 
 - `EXPLORE`: Research and understanding
